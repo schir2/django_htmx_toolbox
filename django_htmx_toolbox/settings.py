@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_htmx',
+    "test_htmx_widgets.apps.TestHtmxWidgetsConfig",
+    "widgets.apps.WidgetsConfig"
 ]
 
 MIDDLEWARE = [
