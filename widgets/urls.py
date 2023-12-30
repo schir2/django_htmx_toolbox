@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import get_text, save_text
+
+from widgets.views import HTMXTextEditView
+
+app_name = 'widgets'
 
 urlpatterns = [
-    path('get_text/', get_text, name='get_text'),
-    path('save_text/', save_text, name='save_text'),
+    path('htmx_text_field/<str:model_name>/<int:pk>/<str:field>/', HTMXTextEditView.as_view(), name='htmx_text_field'),
 ]

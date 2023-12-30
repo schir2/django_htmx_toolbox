@@ -1,27 +1,18 @@
-from abc import abstractmethod, ABC
-
-from django.db.models import Model
 from django.template.response import TemplateResponse
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 
 
-class HTMXTextEditView(ABC, View, SingleObjectMixin):
-    @property
-    @abstractmethod
-    def model(self) -> Model:
-        pass
-
-    @property
-    @abstractmethod
-    def field(self) -> str:
-        pass
+class HTMXTextEditView(View, SingleObjectMixin):
 
     response_class = TemplateResponse
     object = None
 
-    template_initial = ...
-    template_edit = ...
+    template_initial = 'widgets/htmx_text_initial.html'
+    template_edit = 'widgets/htmx_text_edit.html'
+
+    def get_model(self, model_name):
+        ...
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

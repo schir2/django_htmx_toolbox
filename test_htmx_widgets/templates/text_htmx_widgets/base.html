@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <!-- Navigation items go here -->
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    <!-- Footer contents go here -->
+</footer>
+
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>
