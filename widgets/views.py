@@ -1,18 +1,31 @@
+from django.apps import apps
+from django.http import Http404
 from django.template.response import TemplateResponse
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 
 
 class HTMXTextEditView(View, SingleObjectMixin):
-
     response_class = TemplateResponse
     object = None
 
     template_initial = 'widgets/htmx_text_initial.html'
     template_edit = 'widgets/htmx_text_edit.html'
 
-    def get_model(self, model_name):
-        ...
+    def get_queryset(self):
+        if not self.model:
+            self.model = self.get_model()
+        return super().get_queryset()
+
+    def get_model(self):
+        app_label = self.kwargs.get('app_label')
+        model_name = self.kwargs.get('model_name')
+
+        try:
+            model = apps.get_model(app_label, model_name)
+            return model
+        except LookupError:
+            raise Http404(f"Model '{model_name}' not found in app '{app_label}'.")
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
