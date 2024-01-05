@@ -1,5 +1,5 @@
 {% extends 'text_htmx_widgets/base.html' %}
 {% block content %}
     {% load htmx_text_field %}
-    {% htmx_text_field obj=object field='text' %}
+    {% htmx_text_field model_instance=object field_name='text' %}
 {% endblock %}

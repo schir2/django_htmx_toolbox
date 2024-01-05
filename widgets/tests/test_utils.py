@@ -1,5 +1,5 @@
 from django.test import TestCase
-from widgets.utils import extract_app_from_model
+from widgets.utils import extract_field_info
 from test_htmx_widgets.models import TestModel
 
 
@@ -12,7 +12,7 @@ class TestExtractAppFromModel(TestCase):
 
     def test_extract_app_from_model(self):
         obj = self.test_model
-        output = extract_app_from_model(obj)
+        output = extract_field_info(obj)
         expected_output = {
             'model_name': 'testmodel',
             'app_label': 'test_htmx_widgets',

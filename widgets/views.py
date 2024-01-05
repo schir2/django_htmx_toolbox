@@ -27,9 +27,19 @@ class HTMXTextEditView(View, SingleObjectMixin):
         except LookupError:
             raise Http404(f"Model '{model_name}' not found in app '{app_label}'.")
 
+    def get_field_name(self):
+        return self.kwargs.get('field_name')
+
+    def get_field(self):
+        return self.object._meta.get_field(self.get_field_name())
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        context = self.get_context_data(object=self.object)
+        context = self.get_context_data(
+            object=self.object,
+            field_name=self.get_field_name(),
+            field=self.get_field()
+        )
         if request.htmx:
             return self.render_to_response(context, template_name=self.template_edit)
         return self.render_to_response(context, template_name=self.template_initial)
